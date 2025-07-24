@@ -20,7 +20,7 @@ jobs:
           node-version: '22.x'
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
       - name: Check formatting
         run: pnpm run format:check
       - name: Lint code
