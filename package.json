@@ -16,8 +16,7 @@
 		"format:check": "prettier --check .",
 		"lint": "prettier --check . && eslint .",
 		"lint:check": "eslint .",
-		"preinstall": "npx only-allow pnpm",
-		"git:add": "git add ."
+		"preinstall": "npx only-allow pnpm"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.5",
@@ -52,7 +51,6 @@
 	},
 	"pre-commit": [
 		"format",
-		"git:add",
 		"lint"
 	]
 }
