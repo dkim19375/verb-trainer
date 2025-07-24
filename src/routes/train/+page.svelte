@@ -41,7 +41,7 @@
 		if (verbConfig.current.promptLanguage === Language.English) {
 			return clarifier;
 		}
-		return `${currentVerb.infinitive}${clarifier}`;
+		return `${english.infinitive}${clarifier}`;
 	});
 
 	function getRandomVerb(): VerbData {
