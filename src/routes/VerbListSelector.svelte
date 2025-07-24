@@ -139,7 +139,13 @@
 					)} />
 			<small
 				id="custom-verbs-invalid-description"
-				class="m-0 mt-2.5 p-0 leading-0">{invalidVerbsReason}</small>
+				class="m-0 mt-1 p-0 leading-3">{invalidVerbsReason}</small>
 		</div>
 	</div>
 </article>
+
+<style>
+	small {
+		margin-bottom: -0.6rem;
+	}
+</style>
