@@ -11,10 +11,10 @@
 </script>
 
 <article class="m-0 flex flex-col gap-2.5 pt-3 pb-0">
-	<h4 class="mb-1">English:</h4>
+	<h4 class="mb-1">Show Spanish:</h4>
 	<div role="group">
-		{@render languageButton(Language.English, 'Show')}
-		{@render languageButton(Language.Spanish, 'Hide')}
+		{@render languageButton(Language.Spanish, 'Show')}
+		{@render languageButton(Language.English, 'Hide')}
 	</div>
 </article>
 
