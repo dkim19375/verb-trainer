@@ -1,0 +1,10 @@
+@layer theme, base, pico, components, utilities;
+
+@import '@picocss/pico/css/pico.pumpkin.min.css' layer(pico);
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+@import 'tailwindcss/preflight.css' layer(base);
+
+:root {
+	--pico-font-family: 'Noto Sans', sans-serif;
+}

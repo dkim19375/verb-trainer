@@ -1,0 +1,29 @@
+name: Testing CI for pnpm
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install
+      - name: Check formatting
+        run: pnpm run format:check
+      - name: Lint code
+        run: pnpm run lint:check
+      - name: Build
+        run: pnpm run build
