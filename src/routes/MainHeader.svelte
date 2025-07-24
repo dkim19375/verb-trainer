@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import HeaderHomeButton from '$lib/components/HeaderHomeButton.svelte';
+	import HeaderLeftSection from '$lib/components/HeaderLeftSection.svelte';
 
 	const { verbsAmount }: { verbsAmount: number } = $props();
 </script>
 
 <article>
 	<div class="mx-auto flex h-8 max-w-5xl items-center justify-between">
-		<HeaderHomeButton />
+		<HeaderLeftSection />
 
 		<div class="flex items-center gap-5">
 			<span>{verbsAmount} Verb{verbsAmount == 1 ? '' : 's'}</span>

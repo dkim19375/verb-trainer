@@ -1,9 +1,9 @@
 <script lang="ts">
-	import HeaderHomeButton from '$lib/components/HeaderHomeButton.svelte';
+	import HeaderLeftSection from '$lib/components/HeaderLeftSection.svelte';
 </script>
 
 <article class="">
 	<div class="mx-auto flex h-8 max-w-5xl items-center justify-between">
-		<HeaderHomeButton />
+		<HeaderLeftSection />
 	</div>
 </article>
