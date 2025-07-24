@@ -68,6 +68,7 @@
 			.trimStart()
 			.replaceAll(/[^a-záéíóúñ ]/gm, '')
 			.replaceAll(/ {2,}/gm, ' ');
+		currentInput = e.currentTarget.value;
 		if (!displayIncorrect) {
 			return;
 		}
