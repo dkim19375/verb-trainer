@@ -50,7 +50,13 @@
 
 	const isCustomVerbsValid = $derived(invalidVerbsReason === '');
 
-	function getNewVerbListTypes(selected: VerbListType): VerbListType[] {
+	function getNewVerbListTypes(
+		selected: VerbListType,
+		enable: boolean,
+	): VerbListType[] {
+		if (!enable) {
+			return verbListTypes.filter((type) => type !== selected);
+		}
 		if (selected === VerbListType.All) {
 			return [VerbListType.All];
 		}
@@ -82,9 +88,9 @@
 			name="verbListTop"
 			class="aspect-square"
 			checked={verbListTypes.includes(VerbListType.Top)}
-			onchange={() =>
+			onchange={(e) =>
 				updateListTypes(
-					getNewVerbListTypes(VerbListType.Top),
+					getNewVerbListTypes(VerbListType.Top, e.currentTarget.checked),
 					verbListTopNum,
 					verbListCustom,
 				)} />
@@ -127,7 +133,7 @@
 					break;
 				}
 				updateListTypes(
-					getNewVerbListTypes(VerbListType.Top),
+					getNewVerbListTypes(VerbListType.Top, true),
 					e.currentTarget.value,
 					verbListCustom,
 				);
@@ -135,7 +141,7 @@
 			onkeyup={(e) => {
 				console.log(e.currentTarget.value);
 				updateListTypes(
-					getNewVerbListTypes(VerbListType.Top),
+					getNewVerbListTypes(VerbListType.Top, true),
 					e.currentTarget.value,
 					verbListCustom,
 				);
@@ -147,9 +153,12 @@
 			name="verbListCustom"
 			class="mt-1 mr-3 aspect-square"
 			checked={verbListTypes.includes(VerbListType.Custom)}
-			onchange={() =>
+			onchange={(e) =>
 				updateListTypes(
-					getNewVerbListTypes(VerbListType.Custom),
+					getNewVerbListTypes(
+						VerbListType.Custom,
+						e.currentTarget.checked,
+					),
 					verbListTopNum,
 					verbListCustom,
 				)} />
@@ -166,13 +175,13 @@
 				value={verbListCustom}
 				oninput={(e) =>
 					updateListTypes(
-						getNewVerbListTypes(VerbListType.Custom),
+						getNewVerbListTypes(VerbListType.Custom, true),
 						verbListTopNum,
 						e.currentTarget.value,
 					)}
 				onkeyup={(e) =>
 					updateListTypes(
-						getNewVerbListTypes(VerbListType.Custom),
+						getNewVerbListTypes(VerbListType.Custom, true),
 						verbListTopNum,
 						e.currentTarget.value,
 					)} />
