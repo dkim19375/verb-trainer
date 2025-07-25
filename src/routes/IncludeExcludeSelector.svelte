@@ -12,7 +12,7 @@
 	} = $props();
 </script>
 
-<article class="flex flex-1 flex-col gap-2">
+<article class="flex flex-1 flex-col gap-2 rounded-lg">
 	<h4 class="mb-2">{title}</h4>
 	{#each InclusionType.values as type (type)}
 		<label>

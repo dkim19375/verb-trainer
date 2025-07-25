@@ -10,7 +10,7 @@
 	} = $props();
 </script>
 
-<article class="m-0 flex flex-col gap-2.5 pt-3 pb-0">
+<article class="m-0 flex flex-col gap-2.5 pt-3 pb-0 rounded-lg">
 	<h4 class="mb-1">Show Spanish:</h4>
 	<div role="group">
 		{@render languageButton(Language.Spanish, 'Show')}

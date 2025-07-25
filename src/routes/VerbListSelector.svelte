@@ -50,7 +50,7 @@
 	const isCustomVerbsValid = $derived(invalidVerbsReason === '');
 </script>
 
-<article class="flex flex-1 flex-col gap-2">
+<article class="flex flex-1 flex-col gap-2 rounded-lg">
 	<h4 class="mb-2">Verbs</h4>
 	<label>
 		<input

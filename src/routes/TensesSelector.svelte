@@ -9,7 +9,7 @@
 	} = $props();
 </script>
 
-<article class="m-0 flex flex-col">
+<article class="m-0 flex flex-col rounded-lg">
 	<h4>Tenses</h4>
 	<div class="flex flex-row flex-wrap">
 		{#each Object.values(Tense) as tense, index (tense)}
@@ -40,10 +40,21 @@
 		border-top: var(--border-config);
 		border-right: var(--border-config);
 	}
+	.tense-div:nth-child(n) {
+		--border-radius: 0.4rem;
+	}
+	.tense-div:first-child {
+		border-top-left-radius: var(--border-radius);
+	}
 	.tense-div:nth-child(3n + 1) {
 		border-left: var(--border-config);
 	}
+	.tense-div:nth-child(3) {
+		border-top-right-radius: var(--border-radius);
+	}
 	.tense-div:last-child {
 		border-bottom: var(--border-config);
+		border-bottom-left-radius: var(--border-radius);
+		border-bottom-right-radius: var(--border-radius);
 	}
 </style>
