@@ -1,4 +1,6 @@
 <script lang="ts">
+	import TrainingQuickStatsInfo from './TrainingQuickStatsInfo.svelte';
+
 	import TrainingVerbInputArea from './TrainingVerbInputArea.svelte';
 
 	import { PersistentState } from '@friendofsvelte/state';
@@ -27,6 +29,12 @@
 	let currentTense = $state(getRandomTense());
 	let currentPronoun = $state(getRandomPronoun());
 	let currentPronounExample = $state(getRandomPronounExample());
+
+	let totalAmount = $state(0);
+	let correctAmount = $state(0);
+	let streak = $state(0);
+
+	let brokeStreakUpdater = $state(false);
 
 	const verbDisplay = $derived(
 		verbConfig.current.promptLanguage === Language.English ?
@@ -104,18 +112,32 @@
 		return examples[(Math.random() * examples.length) | 0].trim();
 	}
 
-	function nextVerb() {
+	function nextVerb(firstTry: boolean) {
 		currentVerb = getRandomVerb();
 		currentTense = getRandomTense();
 		currentPronoun = getRandomPronoun();
 		currentPronounExample = getRandomPronounExample();
+		if (firstTry) {
+			totalAmount++;
+			correctAmount++;
+			streak++;
+		}
+	}
+
+	function gotIncorrect() {
+		totalAmount++;
+		if (streak <= 0) {
+			return;
+		}
+		streak = 0;
+		brokeStreakUpdater = !brokeStreakUpdater;
 	}
 </script>
 
 <div class="flex-1">
 	<TrainingHeader />
 </div>
-<main class="flex flex-1 items-center justify-center gap-10">
+<main class="flex flex-1 flex-col items-center justify-center gap-5">
 	<article
 		class="flex h-80 w-130 flex-col justify-between px-0 pt-8 pb-10">
 		<TrainingVerbInfo
@@ -128,8 +150,15 @@
 			{currentVerb}
 			{currentTense}
 			{currentPronoun}
-			{nextVerb} />
+			{nextVerb}
+			{gotIncorrect} />
 	</article>
+
+	<TrainingQuickStatsInfo
+		{totalAmount}
+		{correctAmount}
+		{streak}
+		{brokeStreakUpdater} />
 </main>
 <div class="flex-1"></div>
 

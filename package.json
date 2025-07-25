@@ -47,7 +47,8 @@
 		"vite": "^7.0.4"
 	},
 	"dependencies": {
-		"@friendofsvelte/state": "^0.0.6-ts"
+		"@friendofsvelte/state": "^0.0.6-ts",
+		"esm-color": "^1.0.1"
 	},
 	"pre-commit": [
 		"format",

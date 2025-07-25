@@ -1,16 +1,20 @@
 <script lang="ts">
 	import type { Pronoun, Tense, VerbData } from '$lib/types';
+	import { tick } from 'svelte';
+	import { fade } from 'svelte/transition';
 
 	const {
 		currentVerb,
 		currentTense,
 		currentPronoun,
 		nextVerb,
+		gotIncorrect,
 	}: {
 		currentVerb: VerbData;
 		currentTense: Tense;
 		currentPronoun: Pronoun;
-		nextVerb: () => void;
+		nextVerb: (firstTry: boolean) => void;
+		gotIncorrect: () => void;
 	} = $props();
 
 	const currentConjugation = $derived.by(
@@ -26,6 +30,16 @@
 
 	let displayCorrect = $state(false);
 	let displayIncorrect = $state(false);
+	let outTransitionEnabled = $state(false);
+
+	async function showCorrectNotification() {
+		displayCorrect = true;
+		await tick();
+		outTransitionEnabled = true;
+		displayCorrect = false;
+		await tick();
+		outTransitionEnabled = false;
+	}
 
 	function checkAnswer(e: Event) {
 		e.preventDefault();
@@ -36,13 +50,14 @@
 			return;
 		}
 		if (!isCorrect) {
+			gotIncorrect();
 			displayIncorrect = true;
 			return;
 		}
 		displayIncorrect = false;
-		displayCorrect = true;
-		nextVerb();
+		nextVerb(true);
 		currentInput = '';
+		void showCorrectNotification();
 	}
 
 	const accentMap = {
@@ -76,9 +91,9 @@
 			return;
 		}
 		displayIncorrect = false;
-		displayCorrect = true;
-		nextVerb();
+		nextVerb(false);
 		currentInput = '';
+		void showCorrectNotification();
 	}
 </script>
 
@@ -103,7 +118,12 @@
 				>{currentConjugation.conjugation}</span
 			></span>
 	{:else if displayCorrect}
-		<span class="success text-xl font-bold">Correct!</span>
+		<span
+			class="success text-xl font-bold"
+			out:fade={{
+				delay: outTransitionEnabled ? 1000 : 0,
+				duration: outTransitionEnabled ? 500 : 0,
+			}}>Correct!</span>
 	{/if}
 </div>
 

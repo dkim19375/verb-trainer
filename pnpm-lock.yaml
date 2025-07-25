@@ -15,6 +15,9 @@ importers:
       '@friendofsvelte/state':
         specifier: ^0.0.6-ts
         version: 0.0.6-ts(svelte@5.36.16)
+      esm-color:
+        specifier: ^1.0.1
+        version: 1.0.1
     devDependencies:
       '@eslint/compat':
         specifier: ^1.2.5
@@ -925,6 +928,9 @@ packages:
     peerDependenciesMeta:
       jiti:
         optional: true
+
+  esm-color@1.0.1:
+    resolution: {integrity: sha512-1UnjfAxHaRvEJ9stucVItNEnfYSVEk3uUv49Ui/i1QYaW2hvVJ3JIVGt8pRGzqr46Yhj+q2yaQTVZoC+YqJKPA==}
 
   esm-env@1.2.2:
     resolution: {integrity: sha512-Epxrv+Nr/CaL4ZcFGPJIYLWFom+YeV1DqMLHJoEd9SYRxNbaFruBwfEX/kkHUJf55j2+TUbmDcmuilbP1TmXHA==}
@@ -2411,6 +2417,8 @@ snapshots:
       jiti: 2.5.0
     transitivePeerDependencies:
       - supports-color
+
+  esm-color@1.0.1: {}
 
   esm-env@1.2.2: {}
 
