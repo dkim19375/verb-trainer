@@ -26,21 +26,25 @@ export function getFilteredVerbs(
 		if (!verbTrainerData.endings.includes(verb.ending)) {
 			return false;
 		}
+		let isVerbIncluded = verbTrainerData.verbListTypes.includes(
+			VerbListType.All,
+		);
 		if (
-			verbTrainerData.verbListType === VerbListType.Custom &&
-			!customVerbs.includes(verb.infinitive.toLowerCase())
+			verbTrainerData.verbListTypes.includes(VerbListType.Custom) &&
+			customVerbs.includes(verb.infinitive.toLowerCase())
 		) {
-			return false;
+			isVerbIncluded = true;
 		}
-		if (verbTrainerData.verbListType == VerbListType.Top) {
+		if (verbTrainerData.verbListTypes.includes(VerbListType.Top)) {
 			const topNum = parseInt(verbTrainerData.verbListTopNum);
 			if (topNum) {
-				if (verb.frequencyRanking > topNum) {
-					return false;
+				if (verb.frequencyRanking <= topNum) {
+					isVerbIncluded = true;
 				}
-			} else {
-				return false;
 			}
+		}
+		if (!isVerbIncluded) {
+			return false;
 		}
 		let isRegular = false;
 		let isIrregular = false;

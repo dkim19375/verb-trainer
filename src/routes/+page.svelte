@@ -70,16 +70,16 @@
 				setInclusion={(type: InclusionType) =>
 					(data.current.includeIrregular = type)} />
 			<VerbListSelector
-				verbListType={data.current.verbListType}
+				verbListTypes={data.current.verbListTypes}
 				verbListTopNum={data.current.verbListTopNum}
 				verbListCustom={data.current.verbListCustom}
 				verbsList={verbs.map((v) => v.infinitive.toLowerCase())}
-				updateListType={(
-					type: VerbListType,
+				updateListTypes={(
+					types: VerbListType[],
 					topNum: string,
 					list: string,
 				) => {
-					data.current.verbListType = type;
+					data.current.verbListTypes = types;
 					data.current.verbListTopNum = topNum;
 					data.current.verbListCustom = list;
 				}} />

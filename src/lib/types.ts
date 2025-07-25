@@ -136,7 +136,7 @@ export type VerbTrainerData = {
 	tenses: Tense[];
 	includeReflexive: InclusionType;
 	includeIrregular: InclusionType;
-	verbListType: VerbListType;
+	verbListTypes: VerbListType[];
 	verbListTopNum: string;
 	verbListCustom: string;
 	endings: VerbEnding[];
@@ -148,7 +148,7 @@ const defaultVerbTrainerData: VerbTrainerData = {
 	tenses: Object.values(Tense),
 	includeReflexive: InclusionType.Include,
 	includeIrregular: InclusionType.Include,
-	verbListType: VerbListType.All,
+	verbListTypes: [VerbListType.All],
 	verbListTopNum: '',
 	verbListCustom: '',
 	endings: Object.values(VerbEnding),
