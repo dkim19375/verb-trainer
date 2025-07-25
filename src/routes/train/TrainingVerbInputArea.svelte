@@ -101,7 +101,7 @@
 	<form onsubmit={checkAnswer}>
 		<input
 			type="text"
-			class="mt-3 h-12 w-100 text-center text-2xl rounded-lg"
+			class="mt-3 h-12 w-100 rounded-lg text-center text-2xl"
 			placeholder="Conjugate here!"
 			aria-invalid={displayIncorrect && !displayCorrect ? 'true' : null}
 			bind:value={currentInput}

@@ -139,7 +139,7 @@
 </div>
 <main class="flex flex-1 flex-col items-center justify-center gap-5">
 	<article
-		class="flex h-80 w-130 flex-col justify-between items-center px-0 pt-8 pb-10 rounded-4xl">
+		class="flex h-80 w-130 flex-col items-center justify-between rounded-4xl px-0 pt-8 pb-10">
 		<TrainingVerbInfo
 			{currentTense}
 			{currentPronounExample}
