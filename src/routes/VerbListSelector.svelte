@@ -34,7 +34,7 @@
 		}
 		const verbs = verbListCustom
 			.split(',')
-			.map((v) => v.trim())
+			.map((v) => v.trim().toLowerCase())
 			.filter((v) => v.length > 0);
 		if (verbs.length <= 0) {
 			return 'No verbs provided';
@@ -44,6 +44,12 @@
 		);
 		if (unknown.length > 0) {
 			return `Unknown verbs: ${unknown.join(', ')}`;
+		}
+		const duplicates = verbs.filter(
+			(verb, i) => verbs.indexOf(verb) !== i,
+		);
+		if (duplicates.length > 0) {
+			return `Duplicate verbs: ${[...new Set(duplicates)].join(', ')}`;
 		}
 		return '';
 	});
@@ -74,9 +80,9 @@
 			type="radio"
 			name="verbListAll"
 			checked={verbListTypes.includes(VerbListType.All)}
-			onchange={() =>
+			onchange={(e) =>
 				updateListTypes(
-					getNewVerbListTypes(VerbListType.All),
+					getNewVerbListTypes(VerbListType.All, e.currentTarget.checked),
 					verbListTopNum,
 					verbListCustom,
 				)} />
@@ -147,7 +153,7 @@
 				);
 			}} />
 	</label>
-	<div class="mt-0.4 flex items-start">
+	<div class="mt-0.4 flex">
 		<input
 			type="checkbox"
 			name="verbListCustom"
@@ -162,29 +168,41 @@
 					verbListTopNum,
 					verbListCustom,
 				)} />
-		<div>
-			<input
-				type="text"
-				placeholder="andar, beber, vivir"
-				class="m-0 h-7 p-1.5 text-sm"
+		<div class="w-full flex-1">
+			<textarea
+				placeholder="andar, estar, beber, comer, vivir"
+				class="m-0 field-sizing-content max-h-15 min-h-10 min-w-full resize-none p-1.5 align-middle text-xs"
+				rows="2"
+				autocapitalize="off"
+				spellcheck="false"
+				translate="no"
+				writingsuggestions="false"
 				aria-invalid={verbListTypes.includes(VerbListType.Custom) ?
 					isCustomVerbsValid ? 'false'
 					:	'true'
 				:	null}
 				aria-describedby="custom-verbs-invalid-description"
 				value={verbListCustom}
-				oninput={(e) =>
+				oninput={(e) => {
+					e.currentTarget.value = e.currentTarget.value
+						.trimStart()
+						.replaceAll(/ {2,}/gm, ' ')
+						.replaceAll(' ,', ',')
+						.replaceAll(/,{2,}/gm, ',')
+						.replace(/^, */, '')
+						.replaceAll(/[^A-zÁáÉéÍíÓóÚúÑñ ,]/gm, '');
 					updateListTypes(
 						getNewVerbListTypes(VerbListType.Custom, true),
 						verbListTopNum,
 						e.currentTarget.value,
-					)}
+					);
+				}}
 				onkeyup={(e) =>
 					updateListTypes(
 						getNewVerbListTypes(VerbListType.Custom, true),
 						verbListTopNum,
 						e.currentTarget.value,
-					)} />
+					)}></textarea>
 			<small
 				id="custom-verbs-invalid-description"
 				class="m-0 mt-1 p-0 leading-3">{invalidVerbsReason}</small>
