@@ -21,11 +21,12 @@
 
 	const maxTopNum = 500;
 
-	const isTopVerbsValid = $derived(
-		!isNaN(Number(verbListTopNum)) &&
-			Number(verbListTopNum) >= 1 &&
-			Number(verbListTopNum) <= maxTopNum,
-	);
+	const isTopVerbsValid = $derived(isValidTopNum(verbListTopNum));
+
+	function isValidTopNum(num: string): boolean {
+		const parsed = Number(num);
+		return !isNaN(parsed) && parsed >= 1 && parsed <= maxTopNum;
+	}
 
 	const invalidVerbsReason = $derived.by(() => {
 		if (!verbListTypes.includes(VerbListType.Custom)) {
@@ -99,18 +100,46 @@
 			value={verbListTopNum}
 			min="1"
 			max={maxTopNum}
-			oninput={(e) =>
+			oninput={(e) => {
+				if (e.currentTarget.value.length <= 0) {
+					e.currentTarget.value = '';
+				}
+				if (
+					e.currentTarget.value.length >
+					maxTopNum.toString().length + 1
+				) {
+					e.currentTarget.value = e.currentTarget.value.slice(
+						0,
+						maxTopNum.toString().length + 1,
+					);
+				}
+				while (
+					e.currentTarget.value.length > 0 &&
+					e.currentTarget.value.length <= maxTopNum.toString().length
+				) {
+					if (e.currentTarget.value.startsWith('0')) {
+						e.currentTarget.value = e.currentTarget.value.slice(1);
+						continue;
+					}
+					if (!isValidTopNum(e.currentTarget.value)) {
+						e.currentTarget.value = maxTopNum.toString();
+					}
+					break;
+				}
 				updateListTypes(
 					getNewVerbListTypes(VerbListType.Top),
 					e.currentTarget.value,
 					verbListCustom,
-				)}
-			onkeyup={(e) =>
+				);
+			}}
+			onkeyup={(e) => {
+				console.log(e.currentTarget.value);
 				updateListTypes(
 					getNewVerbListTypes(VerbListType.Top),
 					e.currentTarget.value,
 					verbListCustom,
-				)} />
+				);
+			}} />
 	</label>
 	<div class="mt-0.4 flex items-start">
 		<input
