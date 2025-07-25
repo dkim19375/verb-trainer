@@ -51,7 +51,6 @@
 		"esm-color": "^1.0.1"
 	},
 	"pre-commit": [
-		"format",
 		"lint"
 	]
 }
