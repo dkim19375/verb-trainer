@@ -1,32 +1,23 @@
 <script lang="ts">
-	import type { Pronoun, Tense, VerbData } from '$lib/types';
+	import type { ConjugationData } from '$lib/types';
 	import { tick } from 'svelte';
 	import { fade } from 'svelte/transition';
 
 	const {
-		currentVerb,
-		currentTense,
-		currentPronoun,
 		nextVerb,
 		gotIncorrect,
+		currentInput,
+		setCurrentInput,
+		currentConjugation,
+		isCorrect,
 	}: {
-		currentVerb: VerbData;
-		currentTense: Tense;
-		currentPronoun: Pronoun;
 		nextVerb: (firstTry: boolean) => void;
 		gotIncorrect: () => void;
+		currentInput: string;
+		setCurrentInput: (input: string) => void;
+		currentConjugation: ConjugationData;
+		isCorrect: boolean;
 	} = $props();
-
-	const currentConjugation = $derived.by(
-		() => currentVerb.conjugations[currentTense][currentPronoun],
-	);
-	const isCorrect = $derived.by(
-		() =>
-			currentInput.trim().toLowerCase() ==
-			currentConjugation.conjugation.toLowerCase(),
-	);
-
-	let currentInput = $state('');
 
 	let displayCorrect = $state(false);
 	let displayIncorrect = $state(false);
@@ -56,7 +47,7 @@
 		}
 		displayIncorrect = false;
 		nextVerb(true);
-		currentInput = '';
+		setCurrentInput('');
 		void showCorrectNotification();
 	}
 
@@ -96,7 +87,7 @@
 		) {
 			e.currentTarget.setSelectionRange(selection - 1, selection - 1);
 		}
-		currentInput = e.currentTarget.value;
+		setCurrentInput(e.currentTarget.value);
 		if (!displayIncorrect) {
 			return;
 		}
@@ -105,19 +96,19 @@
 		}
 		displayIncorrect = false;
 		nextVerb(false);
-		currentInput = '';
+		setCurrentInput('');
 		void showCorrectNotification();
 	}
 </script>
 
-<div class="flex flex-col items-center">
+<div class="flex h-26 flex-col items-center">
 	<form onsubmit={checkAnswer}>
 		<input
 			type="text"
 			class="mt-3 h-12 w-100 rounded-lg text-center text-2xl"
 			placeholder="Conjugate here!"
 			aria-invalid={displayIncorrect && !displayCorrect ? 'true' : null}
-			bind:value={currentInput}
+			value={currentInput}
 			oninput={checkInput}
 			autocorrect="off"
 			autocapitalize="off"
@@ -126,13 +117,13 @@
 			writingsuggestions="false" />
 	</form>
 	{#if displayIncorrect}
-		<span class="error text-xl"
+		<span class="error w-200 text-center text-xl"
 			>The correct answer is <span class="font-bold"
 				>{currentConjugation.conjugation}</span
 			></span>
 	{:else if displayCorrect}
 		<span
-			class="success text-xl font-bold"
+			class="success w-20 text-xl font-bold"
 			out:fade={{
 				delay: outTransitionEnabled ? 1000 : 0,
 				duration: outTransitionEnabled ? 500 : 0,

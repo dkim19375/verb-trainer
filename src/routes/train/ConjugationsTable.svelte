@@ -1,12 +1,11 @@
 <script lang="ts">
-	import { Pronoun, type Tense, type VerbData } from '$lib/types';
+	import { Pronoun } from '$lib/types';
+	import type { VerbConjugationStates } from './VerbConjugationStates.svelte';
 
 	const {
 		currentVerb,
-		currentTense,
 	}: {
-		currentVerb: VerbData;
-		currentTense: Tense;
+		currentVerb: VerbConjugationStates;
 	} = $props();
 </script>
 
@@ -36,7 +35,9 @@
 		class="min-w-30 bg-inherit px-8 text-center {side == 'left' ?
 			'border-r-1'
 		:	''} {isLast ? 'border-b-0' : ''}">
-		{currentVerb.conjugations[currentTense][pronoun].conjugation}
+		{currentVerb.currentVerb.conjugations[currentVerb.currentTense][
+			pronoun
+		].conjugation}
 	</td>
 
 	<style>
