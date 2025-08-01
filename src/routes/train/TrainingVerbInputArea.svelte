@@ -79,10 +79,23 @@
 				);
 			}
 		}
+		const textBefore = e.currentTarget.value;
+		const selection =
+			e.currentTarget.selectionStart === null ?
+				0
+			:	e.currentTarget.selectionStart;
 		e.currentTarget.value = e.currentTarget.value
-			.trimStart()
 			.replaceAll(/[^a-záéíóúñ ]/gm, '')
 			.replaceAll(/ {2,}/gm, ' ');
+		if (selection !== null && selection > 2) {
+			e.currentTarget.value = e.currentTarget.value.trimStart();
+		}
+		if (
+			textBefore !== e.currentTarget.value &&
+			textBefore.length >= e.currentTarget.value.length
+		) {
+			e.currentTarget.setSelectionRange(selection - 1, selection - 1);
+		}
 		currentInput = e.currentTarget.value;
 		if (!displayIncorrect) {
 			return;

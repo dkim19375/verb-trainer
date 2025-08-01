@@ -184,13 +184,29 @@
 				aria-describedby="custom-verbs-invalid-description"
 				value={verbListCustom}
 				oninput={(e) => {
+					const textBefore = e.currentTarget.value;
+					const selection =
+						e.currentTarget.selectionStart === null ?
+							0
+						:	e.currentTarget.selectionStart;
 					e.currentTarget.value = e.currentTarget.value
-						.trimStart()
 						.replaceAll(/ {2,}/gm, ' ')
 						.replaceAll(' ,', ',')
 						.replaceAll(/,{2,}/gm, ',')
 						.replace(/^, */, '')
 						.replaceAll(/[^A-zÁáÉéÍíÓóÚúÑñ ,]/gm, '');
+					if (selection !== null && selection > 2) {
+						e.currentTarget.value = e.currentTarget.value.trimStart();
+					}
+					if (
+						textBefore !== e.currentTarget.value &&
+						textBefore.length >= e.currentTarget.value.length
+					) {
+						e.currentTarget.setSelectionRange(
+							selection - 1,
+							selection - 1,
+						);
+					}
 					updateListTypes(
 						getNewVerbListTypes(VerbListType.Custom, true),
 						verbListTopNum,
