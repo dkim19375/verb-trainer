@@ -1,8 +1,6 @@
 <script lang="ts">
 	import TrainingQuickStatsInfo from './TrainingQuickStatsInfo.svelte';
 
-	import TrainingVerbInputArea from './TrainingVerbInputArea.svelte';
-
 	import { PersistentState } from '@friendofsvelte/state';
 	import type { PageProps } from './$types';
 	import {
@@ -15,7 +13,7 @@
 		Language,
 	} from '$lib/types';
 	import TrainingHeader from './TrainingHeader.svelte';
-	import TrainingVerbInfo from './TrainingVerbInfo.svelte';
+	import TrainingBox from './TrainingBox.svelte';
 
 	const { data }: PageProps = $props();
 	const verbs = data.verbs;
@@ -35,6 +33,14 @@
 	let streak = $state(0);
 
 	let brokeStreakUpdater = $state(false);
+
+	let showConjugations = $state(false);
+	let conjugationsShown = false;
+	$effect(() => {
+		if (showConjugations) {
+			conjugationsShown = true;
+		}
+	});
 
 	const verbDisplay = $derived(
 		verbConfig.current.promptLanguage === Language.English ?
@@ -117,11 +123,12 @@
 		currentTense = getRandomTense();
 		currentPronoun = getRandomPronoun();
 		currentPronounExample = getRandomPronounExample();
-		if (firstTry) {
+		if (firstTry && !conjugationsShown) {
 			totalAmount++;
 			correctAmount++;
 			streak++;
 		}
+		conjugationsShown = false;
 	}
 
 	function gotIncorrect() {
@@ -132,33 +139,43 @@
 		streak = 0;
 		brokeStreakUpdater = !brokeStreakUpdater;
 	}
+
+	function toggleConjugations() {
+		const alreadyShowedConjugations = conjugationsShown;
+		showConjugations = !showConjugations;
+		if (showConjugations && !alreadyShowedConjugations) {
+			gotIncorrect();
+		}
+	}
 </script>
 
 <div class="flex-1">
 	<TrainingHeader />
 </div>
 <main class="flex flex-1 flex-col items-center justify-center gap-5">
-	<article
-		class="flex h-80 w-130 flex-col items-center justify-between rounded-4xl px-0 pt-8 pb-10">
-		<TrainingVerbInfo
-			{currentTense}
-			{currentPronounExample}
-			{verbDisplay}
-			{verbDisplayAlt} />
-		<hr class="w-124 flex-1" />
-		<TrainingVerbInputArea
-			{currentVerb}
-			{currentTense}
-			{currentPronoun}
-			{nextVerb}
-			{gotIncorrect} />
-	</article>
+	<div class="flex flex-col items-center">
+		<article
+			class="flex h-80 w-130 items-center justify-center rounded-4xl p-0">
+			<TrainingBox
+				{currentVerb}
+				{currentTense}
+				{currentPronoun}
+				{currentPronounExample}
+				{verbDisplay}
+				{verbDisplayAlt}
+				{nextVerb}
+				{gotIncorrect}
+				{showConjugations} />
+		</article>
+	</div>
 
 	<TrainingQuickStatsInfo
 		{totalAmount}
 		{correctAmount}
 		{streak}
-		{brokeStreakUpdater} />
+		{brokeStreakUpdater}
+		areConjugationsShown={showConjugations}
+		{toggleConjugations} />
 </main>
 <div class="flex-1"></div>
 

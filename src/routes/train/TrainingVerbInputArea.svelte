@@ -110,7 +110,7 @@
 	}
 </script>
 
-<div class="flex flex-100 flex-col items-center">
+<div class="flex flex-col items-center">
 	<form onsubmit={checkAnswer}>
 		<input
 			type="text"

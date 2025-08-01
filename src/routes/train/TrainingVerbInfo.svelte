@@ -14,7 +14,7 @@
 	} = $props();
 </script>
 
-<div class="flex flex-100 flex-col items-center">
+<div class="flex flex-col items-center">
 	<span class="mb-3 text-center text-2xl font-light"
 		>{TenseDisplayNames[currentTense]}</span>
 	<span class="text-center text-4xl"

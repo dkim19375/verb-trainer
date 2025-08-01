@@ -8,11 +8,15 @@
 		correctAmount,
 		streak,
 		brokeStreakUpdater: brokeStreak,
+		areConjugationsShown,
+		toggleConjugations,
 	}: {
 		totalAmount: number;
 		correctAmount: number;
 		streak: number;
 		brokeStreakUpdater: boolean;
+		areConjugationsShown: boolean;
+		toggleConjugations: () => void;
 	} = $props();
 
 	const percentCorrect = $derived(
@@ -61,11 +65,24 @@
 </script>
 
 <article
-	class="flex min-w-60 justify-center gap-5 rounded-2xl px-6 text-center text-xl leading-4">
-	{#key brokeStreak}
-		<span in:breakStreakTransition>{streak}🔥</span>
-	{/key}
-	<span
-		>{correctAmount}/{totalAmount}
-		<span class="font-light">({percentCorrect}%)</span></span>
+	class="flex flex-col items-center justify-center gap-3 rounded-2xl px-0 pb-3">
+	<div
+		class="flex min-w-60 justify-center gap-5 text-center text-xl leading-4">
+		{#key brokeStreak}
+			<span in:breakStreakTransition>{streak}🔥</span>
+		{/key}
+		<span
+			>{correctAmount}/{totalAmount}
+			<span class="font-light">({percentCorrect}%)</span></span>
+	</div>
+	<button
+		onclick={toggleConjugations}
+		class="secondary border-0 px-2 py-0.5 text-sm outline"
+		>{areConjugationsShown ? 'Hide' : 'Show'} Conjugations</button>
 </article>
+
+<style>
+	button {
+		font-weight: 380;
+	}
+</style>
