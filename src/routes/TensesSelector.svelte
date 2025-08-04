@@ -23,7 +23,8 @@
 					<label class="mb-0" for={`tense-${index}`}
 						>{TenseDisplayNames[tense]}</label>
 					<label
-						class="mb-0.5 text-sm leading-5 text-gray-500"
+						translate="no"
+						class="notranslate mb-0.5 text-sm leading-5 text-gray-500"
 						for={`tense-${index}`}>{TenseExamples[tense]}</label>
 				</div>
 			</div>

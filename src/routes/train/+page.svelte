@@ -76,6 +76,7 @@
 			class="flex h-80 w-130 items-center justify-center rounded-4xl p-0">
 			<TrainingBox
 				{currentVerb}
+				promptLanguage={verbConfig.current.promptLanguage}
 				{nextVerb}
 				{gotIncorrect}
 				{showConjugations}

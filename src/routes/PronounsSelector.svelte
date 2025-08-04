@@ -13,7 +13,7 @@
 <article class="m-0 flex flex-col rounded-lg py-3">
 	<h4 class="mb-1">Pronouns</h4>
 	{#each Object.values(Pronoun) as pronoun (pronoun)}
-		<label>
+		<label class="notranslate" translate="no">
 			<input
 				type="checkbox"
 				checked={pronouns.includes(pronoun)}

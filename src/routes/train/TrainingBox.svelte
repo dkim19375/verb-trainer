@@ -4,9 +4,11 @@
 	import TrainingVerbInputArea from './TrainingVerbInputArea.svelte';
 	import autoAnimate from '@formkit/auto-animate';
 	import type { VerbConjugationStates } from './VerbConjugationStates.svelte';
+	import type { Language } from '$lib/types';
 
 	const {
 		currentVerb,
+		promptLanguage,
 		nextVerb,
 		gotIncorrect,
 		showConjugations,
@@ -15,6 +17,7 @@
 		isCorrect,
 	}: {
 		currentVerb: VerbConjugationStates;
+		promptLanguage: Language;
 		nextVerb: (firstTry: boolean) => void;
 		gotIncorrect: () => void;
 		showConjugations: boolean;
@@ -27,7 +30,7 @@
 <div
 	class="flex h-full flex-1 flex-col items-center justify-center"
 	use:autoAnimate={{ duration: 200 }}>
-	<TrainingVerbInfo {currentVerb} />
+	<TrainingVerbInfo {currentVerb} {promptLanguage} />
 	<hr class="my-6 w-120" />
 	{#if showConjugations}
 		<div>

@@ -13,7 +13,7 @@
 <article class="m-0 flex flex-col rounded-lg py-3">
 	<h4 class="mb-1">Endings</h4>
 	{#each Object.values(VerbEnding) as ending (ending)}
-		<label>
+		<label class="notranslate" translate="no">
 			<input
 				type="checkbox"
 				checked={endings.includes(ending)}

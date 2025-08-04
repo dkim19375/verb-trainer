@@ -9,7 +9,7 @@
 	} = $props();
 </script>
 
-<table class="mb-0 w-auto table-fixed">
+<table class="notranslate mb-0 w-auto table-fixed" translate="no">
 	<tbody>
 		<tr>
 			{@render conjugationCell(Pronoun.FirstPersonSingular, 'left')}
