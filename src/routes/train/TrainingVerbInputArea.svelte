@@ -62,6 +62,11 @@
 	function checkInput(
 		e: Event & { currentTarget: EventTarget & HTMLInputElement },
 	) {
+		let textBefore = e.currentTarget.value;
+		let selection =
+			e.currentTarget.selectionStart === null ?
+				0
+			:	e.currentTarget.selectionStart;
 		for (const [original, accent] of Object.entries(accentMap)) {
 			if (e.currentTarget.value.includes(original)) {
 				e.currentTarget.value = e.currentTarget.value.replaceAll(
@@ -70,8 +75,11 @@
 				);
 			}
 		}
-		const textBefore = e.currentTarget.value;
-		const selection =
+		if (textBefore !== e.currentTarget.value) {
+			e.currentTarget.setSelectionRange(selection, selection);
+		}
+		textBefore = e.currentTarget.value;
+		selection =
 			e.currentTarget.selectionStart === null ?
 				0
 			:	e.currentTarget.selectionStart;
