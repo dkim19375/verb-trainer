@@ -50,6 +50,7 @@ export function getFilteredVerbs(
 		let isIrregular = false;
 		for (const tense of verbTrainerData.tenses) {
 			const tenseData = verb.conjugations[tense];
+			if (!tenseData) continue;
 			for (const pronoun of verbTrainerData.pronouns) {
 				const conjugation = tenseData[pronoun];
 				if (!conjugation.conjugation) {

@@ -30,6 +30,9 @@ export enum Tense {
 	ImperativeNegative = 'ImperativeNegative',
 	IndicativeConditionalPerfect = 'IndicativeConditionalPerfect',
 	SubjunctivePresent = 'SubjunctivePresent',
+	SubjunctiveImperfect = 'SubjunctiveImperfect',
+	SubjunctiveImperfect2 = 'SubjunctiveImperfect2',
+	SubjunctiveFuture = 'SubjunctiveFuture',
 }
 
 export const TenseDisplayNames: Record<Tense, string> = {
@@ -43,26 +46,34 @@ export const TenseDisplayNames: Record<Tense, string> = {
 	[Tense.IndicativeFuturePerfect]: 'Future Perfect',
 	[Tense.IndicativePastPerfect]: 'Past Perfect',
 	[Tense.IndicativeConditionalPerfect]: 'Conditional Perfect',
-	[Tense.SubjunctivePresent]: 'Subjunctive',
+	[Tense.SubjunctivePresent]: 'Subjunctive Present',
+	[Tense.SubjunctiveImperfect]: 'Subjunctive Imperfect',
+	[Tense.SubjunctiveImperfect2]: 'Subjunctive Imperfect (Rare)',
+	[Tense.SubjunctiveFuture]: 'Subjunctive Future',
 	[Tense.ImperativeAffirmative]: 'Imperative (Affirmative)',
 	[Tense.ImperativeNegative]: 'Imperative (Negative)',
 };
 
 export const TenseExamples: Record<Tense, string> = {
-	[Tense.IndicativePresent]: 'Yo hablo',
-	[Tense.IndicativePresentProgressive]: 'Yo estoy hablando',
-	[Tense.IndicativeFuture]: 'Yo hablaré',
-	[Tense.IndicativeConditional]: 'Yo hablaría',
-	[Tense.IndicativePreterite]: 'Yo hablé',
-	[Tense.IndicativeImperfect]: 'Yo hablaba',
-	[Tense.IndicativePresentPerfect]: 'Yo he hablado',
-	[Tense.IndicativeFuturePerfect]: 'Yo habré hablado',
-	[Tense.IndicativePastPerfect]: 'Yo había hablado',
-	[Tense.IndicativeConditionalPerfect]: 'Yo habría hablado',
-	[Tense.SubjunctivePresent]: 'Yo hable',
-	[Tense.ImperativeAffirmative]: '¡Habla!',
-	[Tense.ImperativeNegative]: '¡No hables!',
+	[Tense.IndicativePresent]: 'Yo como',
+	[Tense.IndicativePresentProgressive]: 'Yo estoy comiendo',
+	[Tense.IndicativeFuture]: 'Yo comeré',
+	[Tense.IndicativeConditional]: 'Yo comería',
+	[Tense.IndicativePreterite]: 'Yo comí',
+	[Tense.IndicativeImperfect]: 'Yo comía',
+	[Tense.IndicativePresentPerfect]: 'Yo he comido',
+	[Tense.IndicativeFuturePerfect]: 'Yo habré comido',
+	[Tense.IndicativePastPerfect]: 'Yo había comido',
+	[Tense.IndicativeConditionalPerfect]: 'Yo habría comido',
+	[Tense.SubjunctivePresent]: 'Yo coma',
+	[Tense.SubjunctiveImperfect]: 'Yo comiera',
+	[Tense.SubjunctiveImperfect2]: 'Yo comiese',
+	[Tense.SubjunctiveFuture]: 'Yo comiere',
+	[Tense.ImperativeAffirmative]: '¡Come!',
+	[Tense.ImperativeNegative]: '¡No comas!',
 };
+
+export const ExcludeTenses: Tense[] = [Tense.SubjunctiveImperfect2];
 
 export type EnglishData = {
 	infinitive: string;

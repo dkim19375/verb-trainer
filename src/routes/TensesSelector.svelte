@@ -1,5 +1,10 @@
 <script lang="ts">
-	import { Tense, TenseDisplayNames, TenseExamples } from '$lib/types';
+	import {
+		ExcludeTenses,
+		Tense,
+		TenseDisplayNames,
+		TenseExamples,
+	} from '$lib/types';
 	const {
 		tenses,
 		toggleTense,
@@ -13,21 +18,23 @@
 	<h4>Tenses</h4>
 	<div class="flex flex-row flex-wrap">
 		{#each Object.values(Tense) as tense, index (tense)}
-			<div class="tense-div flex h-13.5 items-center gap-2 pl-6">
-				<input
-					type="checkbox"
-					checked={tenses.includes(tense)}
-					onchange={() => toggleTense(tense)}
-					id={`tense-${index}`} />
-				<div class="flex flex-col">
-					<label class="mb-0" for={`tense-${index}`}
-						>{TenseDisplayNames[tense]}</label>
-					<label
-						translate="no"
-						class="notranslate mb-0.5 text-sm leading-5 text-gray-500"
-						for={`tense-${index}`}>{TenseExamples[tense]}</label>
+			{#if !ExcludeTenses.includes(tense)}
+				<div class="tense-div flex h-13.5 items-center gap-2 pl-6">
+					<input
+						type="checkbox"
+						checked={tenses.includes(tense)}
+						onchange={() => toggleTense(tense)}
+						id={`tense-${index}`} />
+					<div class="flex flex-col">
+						<label class="mb-0" for={`tense-${index}`}
+							>{TenseDisplayNames[tense]}</label>
+						<label
+							translate="no"
+							class="notranslate mb-0.5 text-sm leading-5 text-gray-500"
+							for={`tense-${index}`}>{TenseExamples[tense]}</label>
+					</div>
 				</div>
-			</div>
+			{/if}
 		{/each}
 	</div>
 </article>
@@ -53,9 +60,15 @@
 	.tense-div:nth-child(3) {
 		border-top-right-radius: var(--border-radius);
 	}
-	.tense-div:last-child {
+	.tense-div:nth-last-child(3) {
 		border-bottom: var(--border-config);
 		border-bottom-left-radius: var(--border-radius);
+	}
+	.tense-div:nth-last-child(2) {
+		border-bottom: var(--border-config);
+	}
+	.tense-div:nth-last-child(1) {
+		border-bottom: var(--border-config);
 		border-bottom-right-radius: var(--border-radius);
 	}
 </style>
