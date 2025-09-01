@@ -7,6 +7,7 @@
 	import TrainingHeader from './TrainingHeader.svelte';
 	import TrainingBox from './TrainingBox.svelte';
 	import { VerbConjugationStates } from './VerbConjugationStates.svelte';
+	import { VisibleStopwatch } from '$lib/VisibleStopwatch';
 
 	const { data }: PageProps = $props();
 	const verbs = data.verbs;
@@ -28,28 +29,56 @@
 	let totalAmount = $state(0);
 	let correctAmount = $state(0);
 	let streak = $state(0);
+	let verbShownTime: VisibleStopwatch = new VisibleStopwatch();
+	let incorrectTime: VisibleStopwatch | null = null;
 
 	let brokeStreakUpdater = $state(false);
 
 	let showConjugations = $state(false);
 	let conjugationsShownWhenWrong = false;
+	let conjugationsShownTotalTime: DOMHighResTimeStamp = 0;
+	let conjugationsShownTime: VisibleStopwatch | null = null;
+
+	function updateStopwatches() {
+		verbShownTime.update();
+		if (incorrectTime !== null) incorrectTime.update();
+		if (conjugationsShownTime !== null) conjugationsShownTime.update();
+	}
 
 	function setCurrentInput(input: string) {
 		currentInput = input;
 	}
 
 	function nextVerb(firstTry: boolean) {
-		currentVerb.getNewVerb();
 		if (firstTry && !conjugationsShownWhenWrong) {
 			totalAmount++;
 			correctAmount++;
 			streak++;
 		}
+		gtag('event', 'correct', {
+			...getCurrentVerbAnalyticsInfo(),
+			time_taken_ms: verbShownTime.visibleTime,
+			first_try: firstTry,
+			time_taken_to_get_incorrect_ms:
+				incorrectTime === null ? undefined : (
+					verbShownTime.visibleTime - incorrectTime.visibleTime
+				),
+			time_taken_since_incorrect_ms:
+				incorrectTime === null ? undefined : incorrectTime.visibleTime,
+		});
+		currentVerb.getNewVerb();
 		conjugationsShownWhenWrong = false;
+		verbShownTime.reset();
+		conjugationsShownTotalTime = 0;
 	}
 
 	function gotIncorrect() {
 		totalAmount++;
+		incorrectTime = new VisibleStopwatch();
+		gtag('event', 'incorrect', {
+			...getCurrentVerbAnalyticsInfo(),
+			time_taken_to_get_incorrect_ms: verbShownTime.visibleTime,
+		});
 		if (streak <= 0) {
 			return;
 		}
@@ -64,8 +93,79 @@
 			gotIncorrect();
 			conjugationsShownWhenWrong = true;
 		}
+		if (showConjugations) {
+			conjugationsShownTime = new VisibleStopwatch();
+			gtag('event', 'show_conjugations', getCurrentVerbAnalyticsInfo());
+		} else {
+			if (conjugationsShownTime === null) {
+				console.error('conjugationsShownTime is null');
+				return;
+			}
+			const elapsedTime = conjugationsShownTime.visibleTime;
+			conjugationsShownTotalTime += elapsedTime;
+			conjugationsShownTime = null;
+			gtag('event', 'hide_conjugations', {
+				...getCurrentVerbAnalyticsInfo(),
+				this_time_conjugations_shown_time_ms: elapsedTime,
+			});
+		}
+	}
+
+	$effect(() => {
+		gtag('event', 'training_page_load', {
+			pronouns: verbConfig.current.pronouns,
+			tenses: verbConfig.current.tenses,
+			include_reflexive: verbConfig.current.includeReflexive,
+			include_irregular: verbConfig.current.includeIrregular,
+			verb_list_types: verbConfig.current.verbListTypes,
+			verb_list_top_num: verbConfig.current.verbListTopNum,
+			verb_list_custom: verbConfig.current.verbListCustom,
+			endings: verbConfig.current.endings,
+			prompt_language: verbConfig.current.promptLanguage,
+		});
+		verbShownTime.reset();
+	});
+
+	function getCurrentVerbAnalyticsInfo(): {
+		infinitive_spanish: string;
+		infinitive_english: string;
+		reflexive: boolean;
+		frequency_ranking: number;
+		ending: string;
+		is_irregular: boolean;
+		conjugation: string;
+		prompt_language: string;
+		current_input: string;
+		is_correct: boolean;
+		conjugations_shown_when_wrong: boolean;
+		total_verbs: number;
+		correct_verbs: number;
+		streak: number;
+		accuracy: number;
+		conjugations_shown_total_time_ms: number;
+	} {
+		return {
+			infinitive_spanish: currentVerb.currentVerb.infinitive,
+			infinitive_english: currentVerb.currentVerb.english.infinitive,
+			reflexive: currentVerb.currentVerb.reflexive,
+			frequency_ranking: currentVerb.currentVerb.frequencyRanking,
+			ending: currentVerb.currentVerb.ending,
+			is_irregular: currentVerb.currentConjugation.isIrregular,
+			conjugation: currentVerb.currentConjugation.conjugation,
+			prompt_language: verbConfig.current.promptLanguage,
+			current_input: currentInput,
+			is_correct: isCorrect,
+			conjugations_shown_when_wrong: conjugationsShownWhenWrong,
+			total_verbs: totalAmount,
+			correct_verbs: correctAmount,
+			streak: streak,
+			accuracy: totalAmount > 0 ? (correctAmount / totalAmount) * 100 : 0,
+			conjugations_shown_total_time_ms: conjugationsShownTotalTime,
+		};
 	}
 </script>
+
+<svelte:document onvisibilitychange={updateStopwatches} />
 
 <div class="flex-1">
 	<TrainingHeader />
