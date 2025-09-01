@@ -22,6 +22,15 @@
 	let displayCorrect = $state(false);
 	let displayIncorrect = $state(false);
 	let outTransitionEnabled = $state(false);
+	let usedShiftAccents = $state(false);
+
+	const alertToUseShift = $derived.by(() => {
+		if (usedShiftAccents) return false;
+		for (const accent of Object.values(accentMap)) {
+			if (currentInput.toLowerCase().includes(accent)) return true;
+		}
+		return false;
+	});
 
 	async function showCorrectNotification() {
 		displayCorrect = true;
@@ -48,6 +57,7 @@
 		displayIncorrect = false;
 		nextVerb(true);
 		setCurrentInput('');
+		usedShiftAccents = false;
 		void showCorrectNotification();
 	}
 
@@ -73,6 +83,7 @@
 					original,
 					accent,
 				);
+				usedShiftAccents = true;
 			}
 		}
 		if (textBefore !== e.currentTarget.value) {
@@ -136,6 +147,12 @@
 				delay: outTransitionEnabled ? 1000 : 0,
 				duration: outTransitionEnabled ? 500 : 0,
 			}}>Correct!</span>
+	{:else if alertToUseShift}
+		<span
+			class="w-200 text-center text-xl font-extralight"
+			transition:fade={{ duration: 100 }}
+			><span class="font-normal">Tip:</span> use the
+			<span class="font-normal">Shift</span> key for accented characters</span>
 	{/if}
 </div>
 
