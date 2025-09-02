@@ -1,5 +1,7 @@
 # (Spanish) Verb Conjugation Trainer
 
+Check it out at https://verbtrainer.dkim19375.me :D
+
 ## Building
 
 ```bash
