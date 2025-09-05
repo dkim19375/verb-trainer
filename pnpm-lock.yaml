@@ -13,8 +13,8 @@ importers:
   .:
     dependencies:
       '@formkit/auto-animate':
-        specifier: ^0.8.2
-        version: 0.8.4
+        specifier: ^0.9.0
+        version: 0.9.0
       '@friendofsvelte/state':
         specifier: ^0.0.6-ts
         version: 0.0.6-ts(svelte@5.38.7)
@@ -309,8 +309,8 @@ packages:
     resolution: {integrity: sha512-Z5kJ+wU3oA7MMIqVR9tyZRtjYPr4OC004Q4Rw7pgOKUOKkJfZ3O24nz3WYfGRpMDNmcOi3TwQOmgm7B7Tpii0w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@formkit/auto-animate@0.8.4':
-    resolution: {integrity: sha512-DHHC01EJ1p70Q0z/ZFRBIY8NDnmfKccQoyoM84Tgb6omLMat6jivCdf272Y8k3nf4Lzdin/Y4R9q8uFtU0GbnA==}
+  '@formkit/auto-animate@0.9.0':
+    resolution: {integrity: sha512-VhP4zEAacXS3dfTpJpJ88QdLqMTcabMg0jwpOSxZ/VzfQVfl3GkZSCZThhGC5uhq/TxPHPzW0dzr4H9Bb1OgKA==}
 
   '@friendofsvelte/state@0.0.6-ts':
     resolution: {integrity: sha512-UfJNPO0CNMVhNPnJhQ6gRzKA0VEeu+5dYrim2ht5/oPfzgckJj1ImjkzdqZvC5FPErbUw25ddPbfr2Wt0HXBOA==}
@@ -1838,7 +1838,7 @@ snapshots:
       '@eslint/core': 0.15.2
       levn: 0.4.1
 
-  '@formkit/auto-animate@0.8.4': {}
+  '@formkit/auto-animate@0.9.0': {}
 
   '@friendofsvelte/state@0.0.6-ts(svelte@5.38.7)':
     dependencies:

@@ -47,7 +47,7 @@
 		"vite": "^7.0.4"
 	},
 	"dependencies": {
-		"@formkit/auto-animate": "^0.8.2",
+		"@formkit/auto-animate": "^0.9.0",
 		"@friendofsvelte/state": "^0.0.6-ts",
 		"@types/gtag.js": "^0.0.20",
 		"esm-color": "^1.0.1"
