@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
 	import HeaderLeftSection from '$lib/components/HeaderLeftSection.svelte';
 
 	const { verbsAmount }: { verbsAmount: number } = $props();
@@ -13,7 +14,7 @@
 			<span>{verbsAmount} Verb{verbsAmount == 1 ? '' : 's'}</span>
 			<button
 				class="h-10 w-20 text-base leading-0"
-				onclick={() => goto('/train')}
+				onclick={() => goto(resolve('/train'))}
 				disabled={verbsAmount <= 0}>Start</button>
 		</div>
 	</div>
