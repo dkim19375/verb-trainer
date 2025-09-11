@@ -7,7 +7,8 @@
 </script>
 
 <article>
-	<div class="mx-auto flex h-8 max-w-5xl items-center justify-between">
+	<div
+		class="mx-auto flex h-8 max-w-5xl items-center justify-between px-3">
 		<HeaderLeftSection />
 
 		<div class="flex items-center gap-5">

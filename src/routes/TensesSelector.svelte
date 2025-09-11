@@ -14,12 +14,12 @@
 	} = $props();
 </script>
 
-<article class="m-0 flex flex-col rounded-lg">
+<article class="m-0 flex flex-col rounded-lg py-3">
 	<h4>Tenses</h4>
 	<div class="flex flex-row flex-wrap">
 		{#each Object.values(Tense) as tense, index (tense)}
 			{#if !ExcludeTenses.includes(tense)}
-				<div class="tense-div flex h-13.5 items-center gap-2 pl-6">
+				<div class="tense-div flex h-13 items-center gap-2 pl-6">
 					<input
 						type="checkbox"
 						checked={tenses.includes(tense)}

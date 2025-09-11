@@ -25,6 +25,6 @@
 
 <style>
 	article {
-		gap: 0.55rem;
+		gap: 0.5rem;
 	}
 </style>

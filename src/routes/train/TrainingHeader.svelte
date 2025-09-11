@@ -3,7 +3,8 @@
 </script>
 
 <article class="">
-	<div class="mx-auto flex h-8 max-w-5xl items-center justify-between">
+	<div
+		class="mx-auto flex h-8 max-w-5xl items-center justify-between px-3">
 		<HeaderLeftSection />
 	</div>
 </article>

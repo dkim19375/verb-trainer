@@ -40,8 +40,8 @@
 </script>
 
 <MainHeader verbsAmount={currentVerbAmount} />
-<main class="mx-auto flex max-w-5xl justify-center gap-4 text-sm">
-	<section class="flex flex-1/5 flex-col gap-4">
+<main class="mx-auto flex max-w-5xl justify-center gap-4 px-3 text-sm">
+	<section class="my-0 flex flex-1/5 flex-col gap-3">
 		<PronounsSelector
 			pronouns={data.current.pronouns}
 			togglePronoun={(pronoun) =>
@@ -54,7 +54,7 @@
 			setPromptLanguage={(language: Language) =>
 				(data.current.promptLanguage = language)} />
 	</section>
-	<section class="mb-0 flex flex-4/5 flex-col flex-wrap gap-4">
+	<section class="mb-0 flex flex-3/4 flex-col flex-wrap gap-4">
 		<TensesSelector
 			tenses={data.current.tenses}
 			toggleTense={(tense) => toggle(data.current.tenses, tense)} />
@@ -86,3 +86,9 @@
 		</section>
 	</section>
 </main>
+
+<style>
+	main {
+		max-width: 64rem;
+	}
+</style>
