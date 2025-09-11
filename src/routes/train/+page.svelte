@@ -8,6 +8,7 @@
 	import TrainingBox from './TrainingBox.svelte';
 	import { VerbConjugationStates } from './VerbConjugationStates.svelte';
 	import { VisibleStopwatch } from '$lib/VisibleStopwatch';
+	import { trackEvent } from '@lukulent/svelte-umami';
 
 	const { data }: PageProps = $props();
 	const verbs = data.verbs;
@@ -55,17 +56,23 @@
 			correctAmount++;
 			streak++;
 		}
-		gtag('event', 'correct', {
+		const baseAnalytics = {
 			...getCurrentVerbAnalyticsInfo(),
 			time_taken_ms: verbShownTime.visibleTime,
-			first_try: firstTry,
-			time_taken_to_get_incorrect_ms:
-				incorrectTime === null ? undefined : (
-					verbShownTime.visibleTime - incorrectTime.visibleTime
-				),
-			time_taken_since_incorrect_ms:
-				incorrectTime === null ? undefined : incorrectTime.visibleTime,
-		});
+			first_try: firstTry.toString(),
+		};
+		if (incorrectTime !== null) {
+			void trackEvent('correct', {
+				...baseAnalytics,
+				time_taken_to_get_incorrect_ms:
+					verbShownTime.visibleTime - incorrectTime.visibleTime,
+				time_taken_since_incorrect_ms: incorrectTime.visibleTime,
+			});
+		} else {
+			void trackEvent('correct', {
+				...baseAnalytics,
+			});
+		}
 		currentVerb.getNewVerb();
 		conjugationsShownWhenWrong = false;
 		verbShownTime.reset();
@@ -75,7 +82,7 @@
 	function gotIncorrect() {
 		totalAmount++;
 		incorrectTime = new VisibleStopwatch();
-		gtag('event', 'incorrect', {
+		void trackEvent('incorrect', {
 			...getCurrentVerbAnalyticsInfo(),
 			time_taken_to_get_incorrect_ms: verbShownTime.visibleTime,
 		});
@@ -95,7 +102,7 @@
 		}
 		if (showConjugations) {
 			conjugationsShownTime = new VisibleStopwatch();
-			gtag('event', 'show_conjugations', getCurrentVerbAnalyticsInfo());
+			void trackEvent('show_conjugations', getCurrentVerbAnalyticsInfo());
 		} else {
 			if (conjugationsShownTime === null) {
 				console.error('conjugationsShownTime is null');
@@ -104,7 +111,7 @@
 			const elapsedTime = conjugationsShownTime.visibleTime;
 			conjugationsShownTotalTime += elapsedTime;
 			conjugationsShownTime = null;
-			gtag('event', 'hide_conjugations', {
+			void trackEvent('hide_conjugations', {
 				...getCurrentVerbAnalyticsInfo(),
 				this_time_conjugations_shown_time_ms: elapsedTime,
 			});
@@ -112,7 +119,7 @@
 	}
 
 	$effect(() => {
-		gtag('event', 'training_page_load', {
+		void trackEvent('training_page_load', {
 			pronouns: verbConfig.current.pronouns,
 			tenses: verbConfig.current.tenses,
 			include_reflexive: verbConfig.current.includeReflexive,
@@ -129,15 +136,15 @@
 	function getCurrentVerbAnalyticsInfo(): {
 		infinitive_spanish: string;
 		infinitive_english: string;
-		reflexive: boolean;
+		reflexive: string;
 		frequency_ranking: number;
 		ending: string;
-		is_irregular: boolean;
+		is_irregular: string;
 		conjugation: string;
 		prompt_language: string;
 		current_input: string;
-		is_correct: boolean;
-		conjugations_shown_when_wrong: boolean;
+		is_correct: string;
+		conjugations_shown_when_wrong: string;
 		total_verbs: number;
 		correct_verbs: number;
 		streak: number;
@@ -147,15 +154,15 @@
 		return {
 			infinitive_spanish: currentVerb.currentVerb.infinitive,
 			infinitive_english: currentVerb.currentVerb.english.infinitive,
-			reflexive: currentVerb.currentVerb.reflexive,
+			reflexive: currentVerb.currentVerb.reflexive.toString(),
 			frequency_ranking: currentVerb.currentVerb.frequencyRanking,
 			ending: currentVerb.currentVerb.ending,
-			is_irregular: currentVerb.currentConjugation.isIrregular,
+			is_irregular: currentVerb.currentConjugation.isIrregular.toString(),
 			conjugation: currentVerb.currentConjugation.conjugation,
 			prompt_language: verbConfig.current.promptLanguage,
 			current_input: currentInput,
-			is_correct: isCorrect,
-			conjugations_shown_when_wrong: conjugationsShownWhenWrong,
+			is_correct: isCorrect.toString(),
+			conjugations_shown_when_wrong: conjugationsShownWhenWrong.toString(),
 			total_verbs: totalAmount,
 			correct_verbs: correctAmount,
 			streak: streak,
