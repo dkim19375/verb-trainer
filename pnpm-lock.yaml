@@ -16,8 +16,8 @@ importers:
         specifier: ^0.9.0
         version: 0.9.0
       '@friendofsvelte/state':
-        specifier: ^0.0.6-ts
-        version: 0.0.6-ts(svelte@5.50.1)
+        specifier: ^0.2.0
+        version: 0.2.0(svelte@5.50.1)
       '@lukulent/svelte-umami':
         specifier: ^0.0.4
         version: 0.0.4(svelte@5.50.1)
@@ -318,8 +318,8 @@ packages:
   '@formkit/auto-animate@0.9.0':
     resolution: {integrity: sha512-VhP4zEAacXS3dfTpJpJ88QdLqMTcabMg0jwpOSxZ/VzfQVfl3GkZSCZThhGC5uhq/TxPHPzW0dzr4H9Bb1OgKA==}
 
-  '@friendofsvelte/state@0.0.6-ts':
-    resolution: {integrity: sha512-UfJNPO0CNMVhNPnJhQ6gRzKA0VEeu+5dYrim2ht5/oPfzgckJj1ImjkzdqZvC5FPErbUw25ddPbfr2Wt0HXBOA==}
+  '@friendofsvelte/state@0.2.0':
+    resolution: {integrity: sha512-d9BQpyBINfO0uUG2SwNUckrSWsXPQauE6xp/TXL2lUuVla4WIFInEDu5mf6LL2xEiBthX0mJ02w9JNm9iAYH1Q==}
     peerDependencies:
       svelte: ^5.0.0
 
@@ -1793,7 +1793,7 @@ snapshots:
 
   '@formkit/auto-animate@0.9.0': {}
 
-  '@friendofsvelte/state@0.0.6-ts(svelte@5.50.1)':
+  '@friendofsvelte/state@0.2.0(svelte@5.50.1)':
     dependencies:
       svelte: 5.50.1
 
