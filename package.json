@@ -19,7 +19,7 @@
 		"preinstall": "npx only-allow pnpm"
 	},
 	"devDependencies": {
-		"@eslint/compat": "^1.2.5",
+		"@eslint/compat": "^2.0.0",
 		"@eslint/js": "^10.0.0",
 		"@picocss/pico": "^2.1.1",
 		"@sveltejs/adapter-auto": "^7.0.0",
