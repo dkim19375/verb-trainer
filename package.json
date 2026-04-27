@@ -36,7 +36,7 @@
 		"pre-commit": "^1.2.2",
 		"prettier": "^3.4.2",
 		"prettier-plugin-svelte": "^3.3.3",
-		"prettier-plugin-tailwindcss": "^0.7.0",
+		"prettier-plugin-tailwindcss": "^0.8.0",
 		"sass": "^1.89.2",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
