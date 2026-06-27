@@ -72,13 +72,13 @@ importers:
         version: 1.2.2
       prettier:
         specifier: ^3.4.2
-        version: 3.8.5
+        version: 3.9.0
       prettier-plugin-svelte:
         specifier: ^3.3.3
-        version: 3.5.2(prettier@3.8.5)(svelte@5.56.4(@typescript-eslint/types@8.62.0))
+        version: 3.5.2(prettier@3.9.0)(svelte@5.56.4(@typescript-eslint/types@8.62.0))
       prettier-plugin-tailwindcss:
         specifier: ^0.8.0
-        version: 0.8.0(prettier-plugin-svelte@3.5.2(prettier@3.8.5)(svelte@5.56.4(@typescript-eslint/types@8.62.0)))(prettier@3.8.5)
+        version: 0.8.0(prettier-plugin-svelte@3.5.2(prettier@3.9.0)(svelte@5.56.4(@typescript-eslint/types@8.62.0)))(prettier@3.9.0)
       sass:
         specifier: ^1.89.2
         version: 1.101.0
@@ -1369,8 +1369,8 @@ packages:
       prettier-plugin-svelte:
         optional: true
 
-  prettier@3.8.5:
-    resolution: {integrity: sha512-zxcTTCedNGJM4R8sj/Cq/F0W/c4iE0afWBcBwMTRtw4WHYP9TWkYjdiH3npPRUYsXQCPR0hTU9yjovOu+E6EQA==}
+  prettier@3.9.0:
+    resolution: {integrity: sha512-LjIqSIC5VYLzs9WedVmJ2ljNAGnU+DteIClbahu4L/DBeWjZ6iT/k1lAYyu9JUh+1xINxWadaPw/Pl63y/agAw==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -2590,18 +2590,18 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier-plugin-svelte@3.5.2(prettier@3.8.5)(svelte@5.56.4(@typescript-eslint/types@8.62.0)):
+  prettier-plugin-svelte@3.5.2(prettier@3.9.0)(svelte@5.56.4(@typescript-eslint/types@8.62.0)):
     dependencies:
-      prettier: 3.8.5
+      prettier: 3.9.0
       svelte: 5.56.4(@typescript-eslint/types@8.62.0)
 
-  prettier-plugin-tailwindcss@0.8.0(prettier-plugin-svelte@3.5.2(prettier@3.8.5)(svelte@5.56.4(@typescript-eslint/types@8.62.0)))(prettier@3.8.5):
+  prettier-plugin-tailwindcss@0.8.0(prettier-plugin-svelte@3.5.2(prettier@3.9.0)(svelte@5.56.4(@typescript-eslint/types@8.62.0)))(prettier@3.9.0):
     dependencies:
-      prettier: 3.8.5
+      prettier: 3.9.0
     optionalDependencies:
-      prettier-plugin-svelte: 3.5.2(prettier@3.8.5)(svelte@5.56.4(@typescript-eslint/types@8.62.0))
+      prettier-plugin-svelte: 3.5.2(prettier@3.9.0)(svelte@5.56.4(@typescript-eslint/types@8.62.0))
 
-  prettier@3.8.5: {}
+  prettier@3.9.0: {}
 
   process-nextick-args@2.0.1: {}
 
