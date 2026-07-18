@@ -87,7 +87,7 @@ importers:
         version: 5.56.6(@typescript-eslint/types@8.64.0)
       svelte-check:
         specifier: ^4.0.0
-        version: 4.7.2(picomatch@4.0.4)(svelte@5.56.6(@typescript-eslint/types@8.64.0))(typescript@5.9.3)
+        version: 4.7.3(picomatch@4.0.4)(svelte@5.56.6(@typescript-eslint/types@8.64.0))(typescript@5.9.3)
       svelte-preprocess:
         specifier: ^6.0.3
         version: 6.0.5(postcss-load-config@3.1.4(postcss@8.5.15))(postcss@8.5.15)(sass@1.101.0)(svelte@5.56.6(@typescript-eslint/types@8.64.0))(typescript@5.9.3)
@@ -1445,8 +1445,8 @@ packages:
   string_decoder@1.1.1:
     resolution: {integrity: sha512-n/ShnvDi6FHbbVfviro+WojiFzv+s8MPMHBczVePfUpDJLwoLT0ht1l4YwBCbi8pJAveEEdnkHyPyTP/mzRfwg==}
 
-  svelte-check@4.7.2:
-    resolution: {integrity: sha512-GoS4XJdGswlq0rIT1vtFLzJY1bvHtY37McY9H9Gkm1Ggw/ICdZYn8J/Z8Yi0BEL0i3R4+jtaWVePjyppMlij/A==}
+  svelte-check@4.7.3:
+    resolution: {integrity: sha512-DHdTCGX62R0fCxBEaT+USdASAnoaRBaaNczkRJl0K7o3WyoCeVUbVxo6fKqpOll/B+WMWCsiFK0eFrJSNBKZIg==}
     engines: {node: '>= 18.0.0'}
     hasBin: true
     peerDependencies:
@@ -2703,7 +2703,7 @@ snapshots:
     dependencies:
       safe-buffer: 5.1.2
 
-  svelte-check@4.7.2(picomatch@4.0.4)(svelte@5.56.6(@typescript-eslint/types@8.64.0))(typescript@5.9.3):
+  svelte-check@4.7.3(picomatch@4.0.4)(svelte@5.56.6(@typescript-eslint/types@8.64.0))(typescript@5.9.3):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       '@sveltejs/load-config': 0.2.0
